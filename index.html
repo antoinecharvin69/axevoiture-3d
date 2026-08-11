@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<title>AxeVoiture 3D — V16</title>
+<link href="./styles.css?v=16" rel="stylesheet"/>
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+<div class="brand">
+<div class="logo"><span></span><span></span></div>
+<div>
+<div class="title">AxeVoiture 3D</div>
+<div class="subtitle">Simulateur pédagogique <span class="version-badge">v16</span></div>
+</div>
+</div>
+<nav class="tabs"><button class="tab active">Simulateur</button></nav>
+<div class="avatar">PC</div>
+</header>
+<main class="layout">
+<section class="scene-card">
+<div class="scene-host" id="sceneHost">
+<div class="hud">
+<div class="angle-box">
+<div><span id="liveAngle">0°</span> / <span id="targetAngle">90°</span></div>
+<small>Angle parcouru</small>
+</div>
+<div class="mode-pill" id="axisLabel">Tangage · haut / bas</div>
+</div>
+
+<div aria-hidden="true" class="plan-ruler vertical" id="planRuler">
+<div class="ruler-track">
+<div class="ruler-ticks" id="rulerTicks"></div>
+<div class="ruler-zero">0°</div>
+<div class="ruler-end">360°</div>
+<div class="ruler-progress" id="rulerProgress"></div>
+<div class="ruler-marker" id="rulerMarker">
+<span id="rulerMarkerValue">0°</span>
+</div>
+</div>
+</div>
+<div class="scene-actions">
+<button id="resetViewBtn">Vue initiale</button>
+<button id="fullscreenBtn">Plein écran</button>
+</div>
+<div class="pedagogy-overlay"><div class="pedagogy-overlay-title">Affichages</div><div class="toggles">
+<label><span>Axe</span><input checked="" id="toggleAxis" type="checkbox"/><i></i></label>
+<label><span>Rapporteur 3D</span><input checked="" id="toggleProtractor" type="checkbox"/><i></i></label>
+<label><span>NEZ + TOIT</span><input checked="" id="toggleMarkers" type="checkbox"/><i></i></label>
+<label><span>Voiture fantôme</span><input checked="" id="toggleGhost" type="checkbox"/><i></i></label>
+</div></div><div class="drag-tip" id="dragTip">Mode observer · glissez pour tourner autour de la voiture</div>
+</div>
+</section>
+<aside class="panel">
+<section class="card">
+<h3>1. Position initiale</h3>
+<div class="row position-actions">
+<button class="active" id="manipulateBtn">Manipuler</button>
+<button id="lockBtn">Verrouiller</button>
+<button class="" id="resetCarBtn">Réinitialiser la voiture</button></div>
+
+</section>
+<section class="card rotation-mode-card mode-inner" id="rotationModeCard">
+<h3>2. Axe de rotation</h3>
+<div class="icon-types">
+<button class="icon-type-btn active" data-icon-type="inner">Sur le plan</button>
+<button class="icon-type-btn" data-icon-type="outer">En profondeur</button>
+</div>
+<div aria-label="Flèche intérieure" class="direction-pad-simple" id="innerDirections">
+<button aria-label="Haut" class="direction-arrow direction-up" data-inner-direction="up">↑</button>
+<button aria-label="Gauche" class="direction-arrow direction-left" data-inner-direction="left">←</button>
+<button aria-label="Droite" class="direction-arrow direction-right active" data-inner-direction="right">→</button>
+<button aria-label="Bas" class="direction-arrow direction-down" data-inner-direction="down">↓</button>
+</div>
+<div aria-label="Flèche extérieure" class="outer-directions" hidden="" id="outerDirections">
+<button aria-label="Antihoraire" class="outer-arrow-btn" data-outer-direction="ccw">↺</button>
+<button aria-label="Horaire" class="outer-arrow-btn active" data-outer-direction="cw">↻</button>
+</div>
+<div class="axis-readout">
+<span>Axe écran</span>
+<b id="axisReadout">vertical</b>
+</div>
+</section>
+<section class="card">
+<h3>3. Angle libre</h3>
+<div class="angle-slider-only">
+<input aria-label="Angle libre" id="angleSlider" max="360" min="0" step="1" type="range" value="90"/>
+<div class="angle-value angle-value-editable">
+<input aria-label="Saisir un angle" id="angleInput" inputmode="decimal" max="360" min="0" step="0.1" type="number" value="90"/>
+<span>°</span>
+</div>
+</div>
+</section>
+<button class="play" id="playBtn">▶ Simuler la rotation</button><section class="card sequence-card-compact">
+<div class="sequence-head">
+<div>
+<h3>Séquence</h3>
+</div>
+<div class="row compact">
+<button id="addStepBtn">+ Ajouter</button>
+<button id="playSequenceBtn">▶ Tout jouer</button>
+<button id="clearSequenceBtn">Effacer</button>
+</div>
+</div>
+<div class="sequence-list" id="sequenceList">
+<div class="empty">Aucune étape pour le moment.</div>
+</div>
+</section>
+</aside>
+</main>
+
+</div>
+<script src="./app.js?v=16" type="module"></script>
+</body>
+</html>
